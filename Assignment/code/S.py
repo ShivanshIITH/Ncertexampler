@@ -1,37 +1,31 @@
 import random
-#desired outputs 
-desired_6 = 0.111
-desired_12 = 0.111
-#for simulation of exact result
-def simulation():
-  list1 = []
-  list2 = []
-  multiply = []
-  for i in range(0, 1000):
-    list1.append(random.randint(1, 6))
-    list2.append(random.randint(1, 6))
-  for i in range(0, 1000):
-    multiply.append(list1[i] * list2[i])
-  num_6 = 0
-  num_12 = 0
-  num_7 = 0
-  for i in range(0, 1000):
-    if multiply[i] == 6:
-      num_6 += 1
-    if multiply[i] == 12:
-      num_12 += 1
-    if multiply[i] == 7:
-      num_7 += 1
-  prob_6 = num_6 / 1000
-  prob_12 = num_12 / 1000
-  prob_7 = num_7 / 1000
-  return prob_6, prob_12, prob_7
 
+desired_products = [6, 7, 12]
+total_trials = 1000000  # answers are varying slightly due to the probabilistic nature of the simulation, so i increase the number of trials to get closer to  desired probabilities. 
 
-while 1>0:
-  prob_6, prob_12, prob_7 = simulation()
-  if prob_6 == desired_6 and prob_12 == desired_12:
-    print(f"Probability of getting product 6 = {prob_6}")
-    print(f"Probability of getting product 12 = {prob_12}")
-    print(f"Probability of getting product 7 = {prob_7}")
-    break
+count_6 = 0
+count_7 = 0
+count_12 = 0
+
+i = 0
+while i < total_trials:
+    die1 = random.randint(1, 6)
+    die2 = random.randint(1, 6)
+    product = die1 * die2
+    
+    if product == 6:
+        count_6 += 1
+    elif product == 7:
+        count_7 += 1
+    elif product == 12:
+        count_12 += 1
+    
+    i += 1
+
+probability_6 = count_6 / total_trials
+probability_7 = count_7 / total_trials
+probability_12 = count_12 / total_trials
+
+print(f"Probability of product 6: {probability_6:.3f}")
+print(f"Probability of product 7: {probability_7:.3f}")
+print(f"Probability of product 12: {probability_12:.3f}")
